@@ -1,141 +1,59 @@
-# Light Date :alarm_clock:
+# Atto ID
 
-> Blazing fast & lightweight (157 bytes) date formatting for Node.js and the browser.
+> Secure URL-friendly unique string ID generator in ~10 LOC.
 
-[![Build Status](https://github.com/xxczaki/light-date/workflows/CI/badge.svg)](https://github.com/xxczaki/light-date/actions?query=workflow%3ACI)
-[![Coverage Status](https://coveralls.io/repos/github/xxczaki/light-date/badge.svg?branch=master)](https://coveralls.io/github/xxczaki/light-date?branch=master)
+[![Build Status](https://github.com/xxczaki/attoid/workflows/CI/badge.svg)](https://github.com/xxczaki/attoid/actions?query=workflow%3ACI)
+[![Coverage Status](https://coveralls.io/repos/github/xxczaki/attoid/badge.svg?branch=master)](https://coveralls.io/github/xxczaki/attoid?branch=master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
-![minified size](https://img.shields.io/bundlephobia/minzip/light-date)
 
-This module aims to provide super fast and easy way to format dates, while also staying lightweight.
+This module generated secure, URL-friendly and truly random IDs. It was inspired mainly by [Nano ID](https://github.com/ai/nanoid). It uses the new [`crypto.randomInt`](https://nodejs.org/api/crypto.html#crypto_crypto_randomint_min_max_callback) method introduced in Node.js v14.10.0. Besides limited compatibility, the performance is also relatively low in comparison with similar libraries (about 20k ops/sec).
 
 ---
 
 ## Highlights
 
-* **Small.** 157 bytes (minified and gzipped). No dependencies. [Size Limit](https://github.com/ai/size-limit) controls the size.
-* **Fast.** See the [benchmarks](#benchmarks).
-* **Compliant.** Follows [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
-* **Well tested.** To make sure it handles various use cases correctly.
-* **Portable.** Works pretty much everywhere.
-* **Written in TypeScript.**
+- Tiny size
+- Same default ID length as in Nano ID
+- Bigger default dictionary (includes 2 additional characters - `~` and `.`)
+- Uses the truly random Crypto API
+- URL-friendly
+- Ability to customize dictionary
+- Well tested
+- Written in TypeScript
 
 ## Install
 
 ```
-$ npm install light-date
+$ npm install attoid
 ```
 
 ## Usage
 
 ```js
-import {format} from 'light-date';
+import {attoid} from 'attoid';
 
-const date = new Date('5/1/2020, 4:30:09 PM');
-
-format(date, 'The date is {MM}/{dd}/{yyyy}!'); //=> 'The date is 05/01/2020!'
+attoid(); // => V_SiU1mrfle.wZD9YbBQ
 ```
 
 ## API
 
-### format(date, exp)
+### attoid(length?, dictionary?)
 
-Returns a string with formatted date.
+Returns a random string.
 
-##### date
+##### length
 
-Type: `Date`
+Type: `number`\
+Default: `21`
 
-Date object, which should be used.
+Length of the generated string.
 
-##### exp
+##### dictionary
 
-Type: `string`
+Type: `string`\
+Default: `aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890-._~`
 
-String, which you want to format, for example: `{yyyy}-{MM}-{dd}` or `Current time: {hh}:{mm}:{ss}`.
-
-### localeFormat(date, exp, locale?)
-
-Returns a string with formatted date. Uses [Intl.DateTimeFormat()](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl/DateTimeFormat/DateTimeFormat) for locale-based formatting.
-
-##### date
-
-Type: `Date`
-
-Date object, which should be used.
-
-##### exp
-
-Type: `string`
-
-String, which you want to format, for example: `{EEE}` or `Era: {GGG}`.
-
-##### locale
-
-Type: `string | string[]`\
-Default: en-US
-
-Locale(s), which will be used for formatting.
-
-## Patterns
-
-Format of the string is based on [Unicode Technical Standard #35](https://www.unicode.org/reports/tr35/tr35-dates.html#Date_Field_Symbol_Table).
-
-##### [format](#formatdate-exp)
-
-Use this API for simple, most common formatting:
-
-| **Unit**      | **Pattern** | **Result examples**    |
-| ------------- | ----------- | ---------------------- |
-| Calendar year | {yy}        | 44, 01, 00, 17         |
-|               | {yyyy}      | 0044, 0001, 1900, 2020 |
-| Month         | {MM}        | 01, 02, ..., 12        |
-| Day           | {dd}        | 01, 02, ..., 31        |
-| Hour          | {HH}        | 00, 01, 02, ..., 23    |
-| Minute        | {mm}        | 00, 01, ..., 59        |
-| Second        | {ss}        | 00, 01, ..., 59        |
-| Millisecond   | {SSS}       | 000, 0001, ..., 999    |
-
-##### [localeFormat](#localeformatdate-exp-locale)
-
-Use this API for locale-based formatting:
-
-| **Unit**    | **Pattern** | **Result examples**              |
-| ----------- | ----------- | -------------------------------- |
-| Month       | {MMM}       | Jan, Feb, ..., Dec               |
-|             | {MMMM}      | January, February, ..., December |
-|             | {MMMMM}     | J, F, ..., D                     |
-| Day of week | {E..EEE}    | Mon, Tue, Wed, ..., Sun          |
-|             | {EEEE}      | Monday, Tuesday, ..., Sunday     |
-|             | {EEEEE}     | M, T, W, T, F, S, S              |
-
-## Benchmarks
-
-```
-# Node.js v12.18.3
-
-light-date             x   1,465,394 ops/sec ±0.17% (96 runs sampled)
-date-format            x   835,649 ops/sec ±0.20% (96 runs sampled)
-moment                 x   650,721 ops/sec ±2.13% (90 runs sampled)
-date-fns lightFormat   x   459,170 ops/sec ±0.19% (97 runs sampled)
-date-fns format        x   345,845 ops/sec ±4.30% (90 runs sampled)
-dayjs                  x   281,183 ops/sec ±0.57% (96 runs sampled)
-```
-
-## FAQ
-
-<details>
-  <summary>How to use format and localeFormat on one string?</summary>
-
-  ## Heading
-  ```ts
-  import {format, lightFormat} from 'light-date';
-
-  const date = new Date();
-
-  format(date, `Current date: ${lightFormat(date, '{MMMM}')} {dd}, {yyyy}`);
-  ```
-</details>
+Custom dictionary, from which the string should be generated.
 
 ## License
 

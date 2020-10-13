@@ -1,36 +1,23 @@
+// @ts-expect-error Too new
+import {randomInt} from 'crypto';
+
 /**
- * Use this API for simple, most common formatting.
+ * Generate a unique and URL-friendly string.
  *
- * @param {Date}  date - Date object, which should be used.
- * @param {string} exp - String, which you want to format, for example: `{yyyy}-{MM}-{dd}` or Current time: `{hh}:{mm}:{ss}`.
- * @return {string} String with formatted date.
+ * @param {number=21} length - Length of the generated string, defaults to 21 characters.
+ * @param {number='aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890-._~'} dictionary - Custom dictionary, from which the string should be generated.
+ * @return {string} Random string.
  *
  * @example
- * format(new Date(2014, 1, 11), '{yyyy}-{MM}-{dd}') //=> '2014-01-11'
+ * attoid();
+ * attoid(10);
  */
-export const format = (date: Date, exp: string): string => exp.replace(/{.*?}/g, key => {
-	switch (key) {
-		case '{yyyy}':
-			return `${date.getFullYear()}`;
-		case '{yy}':
-			return `${date.getFullYear()}`.slice(-2);
-		case '{MM}':
-			return `${(date.getMonth() + 1)}`.padStart(2, '0');
-		case '{dd}':
-			return `${date.getDate()}`.padStart(2, '0');
-		case '{HH}':
-			return `${date.getHours()}`.padStart(2, '0');
-		case '{mm}':
-			return `${date.getMinutes()}`.padStart(2, '0');
-		case '{ss}':
-			return `${date.getSeconds()}`.padStart(2, '0');
-		case '{SSS}':
-			return `${date.getMilliseconds()}`.padStart(3, '0');
-		/* c8 ignore next 2 */
-		default:
-			return '';
-	}
-});
+export const attoid = (length = 21, dictionary = 'aAbBcCdDeEfFgGhHiIjJkKlLmMnNoOpPqQrRsStTuUvVwWxXyYzZ1234567890-._~'): string => {
+	let id = '';
 
-/* c8 ignore next */
-export {default as localeFormat} from './locale';
+	while (length--) {
+		id += dictionary[randomInt(dictionary.length)];
+	}
+
+	return id;
+};
