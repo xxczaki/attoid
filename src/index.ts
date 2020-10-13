@@ -1,4 +1,3 @@
-// @ts-expect-error Too new
 import {randomInt} from 'crypto';
 
 /**
