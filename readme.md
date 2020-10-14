@@ -6,7 +6,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/xxczaki/attoid/badge.svg?branch=master)](https://coveralls.io/github/xxczaki/attoid?branch=master)
 [![XO code style](https://img.shields.io/badge/code_style-XO-5ed9c7.svg)](https://github.com/xojs/xo)
 
-This module generated secure, URL-friendly and truly random IDs. It was inspired mainly by [Nano ID](https://github.com/ai/nanoid). It uses the new [`crypto.randomInt`](https://nodejs.org/api/crypto.html#crypto_crypto_randomint_min_max_callback) method introduced in Node.js v14.10.0. Besides limited compatibility, the performance is also relatively low in comparison with similar libraries (about 20k ops/sec).
+This module generates secure, URL-friendly and truly random IDs. It was inspired mainly by [Nano ID](https://github.com/ai/nanoid). It uses the new [`crypto.randomInt`](https://nodejs.org/api/crypto.html#crypto_crypto_randomint_min_max_callback) method introduced in Node.js v14.10.0. Besides limited compatibility, the performance is also relatively low in comparison with similar libraries (about 20k ops/sec).
 
 ---
 
