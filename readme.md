@@ -12,7 +12,7 @@ This module generates secure, URL-friendly and truly random IDs. It was inspired
 
 ## Highlights
 
-- Tiny size
+- Tiny size (<8 LOC)
 - Same default ID length as in Nano ID
 - Bigger default dictionary (includes 2 additional characters - `~` and `.`)
 - Uses the truly random Crypto API
