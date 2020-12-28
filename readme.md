@@ -1,6 +1,6 @@
 # Atto ID
 
-> Secure URL-friendly unique string ID generator in ~10 LOC.
+> Secure URL-friendly unique string ID generator in ~8 LOC.
 
 [![Build Status](https://github.com/xxczaki/attoid/workflows/CI/badge.svg)](https://github.com/xxczaki/attoid/actions?query=workflow%3ACI)
 [![Coverage Status](https://coveralls.io/repos/github/xxczaki/attoid/badge.svg?branch=master)](https://coveralls.io/github/xxczaki/attoid?branch=master)
